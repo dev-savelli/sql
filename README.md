@@ -1,3 +1,3 @@
-# sql repository
-## Utility, script, info for SQL database
+# sql utility, script, funzioni, info for SQL database
+ 
 
