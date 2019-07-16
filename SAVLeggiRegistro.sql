@@ -12,7 +12,7 @@ GO
 -- =============================================
 -- Author:		Maxone
 -- Create date: 13/05/2019
--- Description:	Cerca chiave registro
+-- Description:	Cerca chiave registro di Business con possibilità di passare anche un default in caso non la trovasse
 -- =============================================
 CREATE FUNCTION [dbo].[SAVLeggiRegistro] 
 (
@@ -28,7 +28,7 @@ AS
 BEGIN
 
 	-- Add the T-SQL statements to compute the return value here
-return	isnull((Select rp_valprop from arcproc_igus.dbo.regprop 
+return	isnull((Select rp_valprop from arcproc.dbo.regprop 
 	where
 	 upper(rp_liv1)=upper(@liv1) and upper(rp_liv2)=upper(@liv2) and upper(rp_liv3)=upper(@liv3) and upper(rp_nomprop)= upper(@nomprop)),@default)
 
