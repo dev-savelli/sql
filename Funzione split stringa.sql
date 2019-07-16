@@ -8,6 +8,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+/* funzionae di tipo tabella che accetta come parametri una stringa e un delimitatore, restituisce una tabella
+con le colonne ID, Dati dove in dati ci sono i pezzi splittati dal delimitatore
+Es. SELECT * FROM dbo.split('primo_secondo_terzo' , '_') 
+*/
+
 ALTER FUNCTION [dbo].[Split]
 (
 @String NVARCHAR(4000),
