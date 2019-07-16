@@ -14,7 +14,7 @@ GO
 -- Create date: 13/05/2019
 -- Description:	Cerca chiave registro di Business con possibilità di passare anche un default in caso non la trovasse
 -- =============================================
-CREATE FUNCTION [dbo].[SAVLeggiRegistro] 
+CREATE FUNCTION [dbo].[SAVFLeggiRegistro] 
 (
 	-- Add the parameters for the function here
 	@liv1 varchar(max),
