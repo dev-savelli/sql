@@ -1,8 +1,8 @@
 /* Invio risultato query direttamente da sql 
-si puÚ usare il parametro @query per avere nel corpo direttamente il risultato in formato testo 
-si puÚ usare il tag '<pre>' se si usa un formato corpo html per avere la spaziatura fissa del carattere per una migliore leggibilit‡
+si pu√≤ usare il parametro @query per avere nel corpo direttamente il risultato in formato testo 
+si pu√≤ usare il tag '<pre>' se si usa un formato corpo html per avere la spaziatura fissa del carattere per una migliore leggibilit√†
 
-MOLTO MEGLIO perÚ usare una tabella html composta direttamente nel corpo!
+MOLTO MEGLIO per√≤ usare una tabella html composta direttamente nel corpo!
 */
 
 DECLARE @corpo NVARCHAR(MAX);
@@ -10,8 +10,8 @@ SET @corpo = '<H2> Elenco Clienti </H2>' + -- tag per titolo
              '<table style="border-collapse:collapse;" border="1" cellpadding="3">' + -- tag di inizio tabella
              '<tr style= "inherit"> <th>Conto</th> <th>descrizione</th> <th>indirizzo</th> </tr>' + -- tag per riga header con i nomi delle colonne
              
-			 --query che estrae i dati in formato xml mettendo per ogni riga il tag <tr> riga di tabella, e per ogni campo mette il tag <td> (la cella) e </td> (È il '' tra i campi)
-			 --l'istruzione FOR XML PATH capisce che il '' tra i campi È il </td> , il CAST serve per restituire un nvarchar che si unisce al resto della stringa 
+			 --query che estrae i dati in formato xml mettendo per ogni riga il tag <tr> riga di tabella, e per ogni campo mette il tag <td> (la cella) e </td> (√© il '' tra i campi)
+			 --l'istruzione FOR XML PATH capisce che il '' tra i campi √© il </td> , il CAST serve per restituire un nvarchar che si unisce al resto della stringa 
              CAST(
 (
     SELECT td = an_conto, 
