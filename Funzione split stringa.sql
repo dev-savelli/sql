@@ -1,13 +1,3 @@
-USE [PROVA3]
-GO
-
-/****** Object:  UserDefinedFunction [dbo].[Split]    Script Date: 12/07/2019 12:28:19 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
 /* funzionae di tipo tabella che accetta come parametri una stringa e un delimitatore, restituisce una tabella
 con le colonne ID, Dati dove in dati ci sono i pezzi splittati dal delimitatore
 Es. SELECT * FROM dbo.SAVFSplit('primo_secondo_terzo' , '_') 
