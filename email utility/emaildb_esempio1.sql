@@ -20,21 +20,22 @@ SET @corpo = '<H2> Situazione magazzino </H2>
 			 <th style="background-color:lavender;">Impegnato</th>
 			 </tr>' + -- unisce alla stringa il risultato della query che estrae i dati in formato xml 
              -- mettendo per ogni riga il tag <tr> riga di tabella, e per ogni campo mette il tag <td> (la cella) 
-             -- l'istruzione FOR XML PATH capisce che il '' tra i campi é il </td> , il CAST serve per assicurare un nvarchar che si unisce al resto della stringa 
+             -- l'istruzione FOR XML PATH capisce che il null tra i campi é il </td>
+             -- il CAST serve per assicurare la conversione in nvarchar che si unisce al resto della stringa 
              CAST(
 (
     SELECT artico.ar_codart AS td, 
-           '', 
+           NULL, 
            artico.ar_descr AS td, 
-           '', 
+           NULL, 
            artico.ar_unmis AS td, 
-           '', 
+           NULL, 
            format(artprox.apx_esist, '#.##') AS td, 
-           '', 
+           NULL, 
            format(artprox.apx_ordin, '#.##') AS td, 
-           '', 
+           NULL, 
            format(artprox.apx_impeg, '#.##') AS td, 
-           ''
+           NULL
     FROM artico
          INNER JOIN artprox ON artico.ar_codart = artprox.apx_codart
                                AND artico.codditt = artprox.codditt
@@ -43,11 +44,12 @@ SET @corpo = '<H2> Situazione magazzino </H2>
     ORDER BY artico.ar_codart FOR XML PATH('tr')
 ) AS NVARCHAR(MAX)) + '</table>'; --chiude il tag della tabella
 --PRINT @corpo;
+--RETURN;
 --esegue la sp che invia l'email con la tabella generata direttamente nel corpo
 EXEC msdb.dbo.sp_send_dbmail 
      @profile_name = 'avvisi', 
      @execute_query_database = 'PROVA3', 
-     @recipients = 'indir@indir.com', 
+     @recipients = 'xxx@xx.com', 
      @subject = 'invio email da sp', 
      @body_format = 'HTML', 
      @body = @corpo;
