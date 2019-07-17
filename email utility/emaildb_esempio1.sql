@@ -18,23 +18,22 @@ SET @corpo = '<H2> Situazione magazzino </H2>
 			 <th style="background-color:yellow;">Esistenza</th>
 			 <th style="background-color:lavender;">Ordinato</th>
 			 <th style="background-color:lavender;">Impegnato</th>
-			 </tr>' + 
-             -- unisce alla stringa il risultato della query che estrae i dati in formato xml 
-			 -- mettendo per ogni riga il tag <tr> riga di tabella, e per ogni campo mette il tag <td> (la cella) 
+			 </tr>' + -- unisce alla stringa il risultato della query che estrae i dati in formato xml 
+             -- mettendo per ogni riga il tag <tr> riga di tabella, e per ogni campo mette il tag <td> (la cella) 
              -- l'istruzione FOR XML PATH capisce che il '' tra i campi é il </td> , il CAST serve per assicurare un nvarchar che si unisce al resto della stringa 
              CAST(
 (
-    SELECT td = artico.ar_codart, 
+    SELECT artico.ar_codart AS td, 
            '', 
-           td = artico.ar_descr, 
+           artico.ar_descr AS td, 
            '', 
-           td = artico.ar_unmis, 
+           artico.ar_unmis AS td, 
            '', 
-           td = format(artprox.apx_esist, '#.##'), 
+           format(artprox.apx_esist, '#.##') AS td, 
            '', 
-           td = format(artprox.apx_ordin, '#.##'), 
+           format(artprox.apx_ordin, '#.##') AS td, 
            '', 
-           td = format(artprox.apx_impeg, '#.##'), 
+           format(artprox.apx_impeg, '#.##') AS td, 
            ''
     FROM artico
          INNER JOIN artprox ON artico.ar_codart = artprox.apx_codart
@@ -42,15 +41,13 @@ SET @corpo = '<H2> Situazione magazzino </H2>
     WHERE apx_esist > 0
           AND apx_ordin > 0
     ORDER BY artico.ar_codart FOR XML PATH('tr')
-) AS NVARCHAR(MAX)) + '</table>' --chiude il tag della tabella
-
+) AS NVARCHAR(MAX)) + '</table>'; --chiude il tag della tabella
 --PRINT @corpo;
-
 --esegue la sp che invia l'email con la tabella generata direttamente nel corpo
 EXEC msdb.dbo.sp_send_dbmail 
      @profile_name = 'avvisi', 
      @execute_query_database = 'PROVA3', 
-     @recipients = 'massi@savel.co', 
+     @recipients = 'indir@indir.com', 
      @subject = 'invio email da sp', 
      @body_format = 'HTML', 
      @body = @corpo;
