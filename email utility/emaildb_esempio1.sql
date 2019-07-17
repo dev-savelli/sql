@@ -28,7 +28,7 @@ SET @corpo = '<H2> Elenco Clienti </H2>' + -- tag per titolo
 EXEC msdb.dbo.sp_send_dbmail 
      @profile_name = 'avvisi', 
      @execute_query_database = 'PROVA3', 
-     @recipients = 'massimo@savelli.com', 
+     @recipients = 'simo@savell.om', 
      @subject = 'invio email da sp', 
      @body_format = 'HTML', 
      @body = @corpo;
