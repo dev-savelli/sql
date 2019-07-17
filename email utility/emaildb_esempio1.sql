@@ -8,7 +8,7 @@ MOLTO MEGLIO però usare una tabella html composta direttamente nel corpo!
 DECLARE @corpo NVARCHAR(MAX);
 SET @corpo = '<H2> Elenco Clienti </H2>' + -- tag per titolo
              '<table style="border-collapse:collapse;" border="1" cellpadding="3">' + -- tag di inizio tabella
-             '<tr style= "inherit"> <th>Conto</th> <th>descrizione</th> <th>indirizzo</th> </tr>' + -- tag per riga header con i nomi delle colonne
+             '<tr> <th>Conto</th> <th>descrizione</th> <th>indirizzo</th> </tr>' + -- tag per riga header con i nomi delle colonne
              
 			 --query che estrae i dati in formato xml mettendo per ogni riga il tag <tr> riga di tabella, e per ogni campo mette il tag <td> (la cella) e </td> (é il '' tra i campi)
 			 --l'istruzione FOR XML PATH capisce che il '' tra i campi é il </td> , il CAST serve per restituire un nvarchar che si unisce al resto della stringa 
