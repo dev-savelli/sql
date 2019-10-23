@@ -1,0 +1,12 @@
+
+-- genera i comandi truncate da copiare e incollare come query per tabelle con nome e wildcard
+DECLARE @SQL VARCHAR(MAX)
+
+SELECT @SQL = ''
+
+SELECT @SQL = @SQL + ' Truncate table ' + name + char(10) + ' go ' + char(10)
+ FROM SYS.objects
+ WHERE NAME LIKE 'persw%'
+  AND TYPE = 'U'
+
+ PRINT @SQL
