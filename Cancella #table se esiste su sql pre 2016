@@ -1,0 +1,3 @@
+-- Cancella se esiste la tabella temporanea su sql pre 2016 (perché non c'é il comando ifexist)
+IF OBJECT_ID('tempdb..#dbtmp') IS NOT NULL
+    DROP TABLE #dbtmp;
