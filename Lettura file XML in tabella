@@ -1,0 +1,50 @@
+
+-- legge un file xml 
+
+SELECT MY_XML.Job.query('Start').value('.', 'VARCHAR(50)') avvio, 
+       MY_XML.Job.query('FileName').value('.', 'VARCHAR(50)') nomefile, 
+       MY_XML.Job.query('UserName').value('.', 'VARCHAR(50)') utente, 
+       MY_XML.Job.query('Preset_Pieces').value('.', 'VARCHAR(50)') qtaprevista, 
+       MY_XML.Job.query('Pieces_Number').value('.', 'VARCHAR(50)') qtalavorata, 
+       MY_XML.Job.query('Hours_Production').value('.', 'VARCHAR(50)') prod_oraria, 
+       MY_XML.Job.query('Average_Productivity').value('.', 'VARCHAR(50)') media_pezzi_minuto, 
+       MY_XML.Job.query('End').value('.', 'VARCHAR(50)') fine, 
+       MY_XML.Job.query('Result').value('.', 'VARCHAR(50)') stato
+FROM
+(
+    SELECT CAST(MY_XML AS XML)
+    FROM OPENROWSET(BULK 'C:\temp\artline\dati.xml', SINGLE_BLOB) AS T(MY_XML)
+) AS T(MY_XML)
+CROSS APPLY MY_XML.nodes('Production_Data/Job') AS MY_XML(Job)
+
+
+
+
+
+***** file di esempio
+
+<Production_Data>
+<Job>
+<Start>2019/01/03_17:57:30</Start> 
+<FileName>(no name)</FileName> 
+<UserName>Mario</UserName> 
+<Preset_Pieces>15</Preset_Pieces> 
+<Pieces_Number>7</Pieces_Number> 
+<Hours_Production Units="hours">0.0201</Hours_Production>
+<Average_Productivity Units="Pieces/min">5.443</Average_Productivity>
+<End>2019/01/03_17:58:47</End> 
+<Result>OK</Result> 
+</Job>
+<Job>
+<Start>2019/01/03_18:01:30</Start>
+<FileName>(no name)</FileName>
+<UserName>Giorgio</UserName>
+<Preset_Pieces>15</Preset_Pieces>
+<Pieces_Number>8</Pieces_Number>
+<Hours_Production Units="hours">0.0214</Hours_Production>
+<Average_Productivity Units="Pieces/min">5.654</Average_Productivity>
+<End>2019/01/03_18:03:47</End>
+<Result>OK</Result>
+</Job>
+</Production_Data>
+
