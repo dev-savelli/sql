@@ -1,0 +1,29 @@
+        DECLARE @comando NVARCHAR(MAX)= '';
+
+        --cerca gli ordini non rilasciati e li elabora creando la struttura cartelle e files necessari
+        SELECT @comando = @comando + 'execute SAVSP_CreaFileOrdineI40_sb3 ''' + mo_tipork + ''', ' + CONVERT(VARCHAR, mo_anno) + ', ''' + mo_serie + ''', ' + CONVERT(VARCHAR, mo_numord) + ',''' + mo_codart + ''', ''' + ISNULL(ar_hhdirstl, 'C:\SB3I40\') + '''' + CHAR(13)
+        FROM
+        (
+            SELECT DISTINCT 
+                   mo_tipork, 
+                   mo_anno, 
+                   mo_serie, 
+                   mo_numord, 
+                   mo_codart, 
+                   ar_hhdirstl
+            FROM dbo.testord
+                 INNER JOIN dbo.movord ON testord.td_numord = movord.mo_numord
+                                          AND testord.td_anno = movord.mo_anno
+                                          AND testord.td_serie = movord.mo_serie
+                                          AND testord.td_tipork = movord.mo_tipork
+                                          AND testord.codditt = movord.codditt
+                 INNER JOIN dbo.artico ON movord.mo_codart = artico.ar_codart
+                                          AND movord.codditt = artico.codditt
+            WHERE td_rilasciato = 'N'
+                  AND td_flevas = 'N'
+                  AND td_tipork = 'R'
+                  AND mo_codart IN('NH', 'NY')
+        ) ord;
+        PRINT @comando;
+        EXECUTE sp_executesql 
+                @comando;
