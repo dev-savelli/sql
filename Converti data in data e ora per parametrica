@@ -1,0 +1,13 @@
+SELECT pers_i40.macchina, 
+       CONVERT(DATE, avvio) AS data_avvio, 
+       CONVERT(VARCHAR(8), (CONVERT(TIME(0), avvio))) AS ora_avvio, 
+       CONVERT(DATE, fine) AS data_fine, 
+       CONVERT(VARCHAR(8), (CONVERT(TIME(0), fine))) AS ora_fine,  
+       pers_i40.qta_prevista, 
+       pers_i40.qta_prodotta, 
+       pers_i40.ore_prod, 
+       pers_i40.media_pezzi_min, 
+       pers_i40.stato, 
+       pers_i40.nomefile, 
+       pers_i40.utente
+FROM pers_i40;
