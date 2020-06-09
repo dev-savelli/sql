@@ -1,11 +1,34 @@
 
+--SELECT * INTO Data_dq
+--FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0',
+--    'Excel 12.0; Database=C:\Temp\Data.xlsx', [Sheet1$]);
+
+DECLARE @percorso AS NVARCHAR(200)= 'C:\temp\Nobis\';
+DECLARE @cartella AS NVARCHAR(50)= 'testsql.xls';
+DECLARE @foglio AS NVARCHAR(50)= 'Artico$';
+DECLARE @comando AS NVARCHAR(MAX);
+SET @comando = 'SELECT * FROM OPENROWSET (''Microsoft.ACE.OLEDB.12.0'' , ''Excel 12.0; Database=' + @percorso + @cartella + ''', ' + '[' + @foglio + '])';
+PRINT @comando;
+
+EXEC sp_executesql @comando;
 
 
 
+--SELECT * FROM OPENROWSET ('Microsoft.ACE.OLEDB.12.0' , 'Excel 12.0; Database=C:\temp\Nobis\testsql.xls', [Artico$])
+
+---***** OPZIONI DI CONFIGURAZIONE DI SQL *****
+--sp_configure 'show advanced options', 1;  
+--RECONFIGURE;
+--GO 
+--sp_configure 'Ad Hoc Distributed Queries', 1;  
+--RECONFIGURE;  
+--GO 
+
+--EXEC sp_MSset_oledb_prop N'Microsoft.ACE.OLEDB.12.0', N'AllowInProcess', 1
+--EXEC sp_MSset_oledb_prop N'Microsoft.ACE.OLEDB.12.0', N'DynamicParameters', 1
 
 
-
-
+/*
 
 ********* scaricare ed installare i Microsoft Ace Oledb a 64bit *********
 ********* usare queste info se non si riesce ad eseguire il processo ******
@@ -50,4 +73,4 @@ http://sqlserverpedia.com/blog/sql-server-bloggers/too-many-bits/
 
 C: \ Users \ servizio SQL nome dell'account \ AppData \ Local \ Temp
 
-
+*/
