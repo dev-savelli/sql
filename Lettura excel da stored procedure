@@ -1,0 +1,53 @@
+
+
+
+
+
+
+
+
+
+********* scaricare ed installare i Microsoft Ace Oledb a 64bit *********
+********* usare queste info se non si riesce ad eseguire il processo ******
+
+Chiudere SQL Server Management Studio. Digitare services.msc nella comando di marcia per aprire la finestra di servizi.
+
+Ricerca di servizio SQL Server e fare clic destro e selezionare Proprietà.
+
+Nella scheda Connessione, selezionare account di sistema / o selezionare l'ID del dominio e account e la password.
+
+Una volta che trova il nome di login premere OK.
+
+Ora digitate le password del tuo accesso in entrambi i campi.
+
+Riavviare i servizi in modo che vengano applicate le nuove modifiche, come mostrato nella figura seguente.
+
+Ora avviare SQL Server Management Studio e cercare di eseguire la query, se ancora non funziona provare un riavvio del sistema.
+
+... o eseguire la seguente interrogazione:
+
+USE [master] 
+GO 
+EXEC master.dbo.sp_MSset_oledb_prop N'Microsoft.ACE.OLEDB.12.0', N'AllowInProcess', 1 
+GO 
+EXEC master.dbo.sp_MSset_oledb_prop N'Microsoft.ACE.OLEDB.12.0', N'DynamicParameters', 1 
+GO 
+
+**********************************
+Invece di cambiare l'utente, ho trovato questo consiglio:
+
+https://social.technet.microsoft.com/Forums/lync/en-US/bb2dc720-f8f9-4b93-b5d1-cfb4f8a8b1cb/the-ole-db-provider-microsoftaceoledb120-for-linked-server-null-reported- un errore di accesso? forum = SQLDataAccess
+
+Questo potrebbe aiutare qualcun altro fuori - dopo aver provato ogni soluzione per provare e correggere questo errore su SQL 64 ..
+
+Impossibile inizializzare l'oggetto origine dati del provider OLE DB "Microsoft.ACE.OLEDB.12.0" per il server collegato "(null)".
+
+..Io trovato un articolo qui ...
+
+http://sqlserverpedia.com/blog/sql-server-bloggers/too-many-bits/
+
+..che mi ha suggerito di dare a tutti piena autorizzazione per questa cartella ..
+
+C: \ Users \ servizio SQL nome dell'account \ AppData \ Local \ Temp
+
+
